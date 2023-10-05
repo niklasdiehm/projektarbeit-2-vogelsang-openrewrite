@@ -43,6 +43,8 @@
 				<configuration>
 					<activeRecipes>
 						<recipe>com.hka.niklasdiehm.UpdateMavenDependencyVersion</recipe>
+						<recipe>org.openrewrite.java.RemoveUnusedImports</recipe>
+						<recipe>org.openrewrite.java.OrderImports</recipe>
 					</activeRecipes>
 				</configuration>
 			</plugin>
