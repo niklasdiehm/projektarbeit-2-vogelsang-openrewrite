@@ -21,7 +21,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<version>3.1.3</version>
 		</dependency>
 
 		<dependency>
@@ -36,6 +35,16 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.openrewrite.maven</groupId>
+				<artifactId>rewrite-maven-plugin</artifactId>
+				<version>5.7.1</version>
+				<configuration>
+					<activeRecipes>
+						<recipe>com.hka.niklasdiehm.UpdateMavenDependencyVersion</recipe>
+					</activeRecipes>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
