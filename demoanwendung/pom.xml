@@ -22,6 +22,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jaxb</groupId>
+			<artifactId>jaxb-runtime</artifactId>
+			<scope>test</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -33,20 +38,54 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.cyclonedx</groupId>
+				<artifactId>cyclonedx-maven-plugin</artifactId>
+				<version>2.7.10</version>
+			</plugin>
+			<plugin>
+				<groupId>io.github.pmckeown</groupId>
+				<artifactId>dependency-track-maven-plugin</artifactId>
+				<version>1.7.0</version>
+				<inherited>false</inherited>
+				<configuration>
+					<dependencyTrackBaseUrl>http://localhost:8081</dependencyTrackBaseUrl>
+					<apiKey>odt_1HT7aqIJNKvnLqdYS42wA7tstoAGmyL6</apiKey>
+					<projectName>Demoanwendung</projectName>
+					<verifySsl>false</verifySsl>
+					<failOnError>true</failOnError>
+					<pollingConfig>
+						<enabled>true</enabled>
+						<pause>500</pause>
+						<attempts>40</attempts>
+						<timeUnit>MILLIS</timeUnit>
+					</pollingConfig>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<groupId>org.openrewrite.maven</groupId>
 				<artifactId>rewrite-maven-plugin</artifactId>
-				<version>5.7.1</version>
+				<version>5.15.4</version>
 				<configuration>
 					<activeRecipes>
 						<recipe>com.hka.niklasdiehm.UpdateMavenDependencyVersion</recipe>
 						<recipe>org.openrewrite.java.RemoveUnusedImports</recipe>
 						<recipe>org.openrewrite.java.OrderImports</recipe>
+						<recipe>org.openrewrite.java.migrate.UpgradeToJava21</recipe>
+						<recipe>org.openrewrite.java.migrate.JavaVersion21</recipe>
+						<recipe>com.hka.niklasdiehm.ReplaceStringLiteralValue</recipe>
 					</activeRecipes>
 				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.openrewrite.recipe</groupId>
+						<artifactId>rewrite-migrate-java</artifactId>
+						<version>2.4.2</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
